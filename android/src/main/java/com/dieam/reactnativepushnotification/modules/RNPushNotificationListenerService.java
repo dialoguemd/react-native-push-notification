@@ -137,15 +137,15 @@ public class RNPushNotificationListenerService extends FirebaseMessagingService 
 
     private boolean isApplicationInForeground() {
         ActivityManager activityManager = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
-        List<RunningAppProcessInfo> processInfos = activityManager.getRunningAppProcesses();
-        if (processInfos != null) {
-            for (RunningAppProcessInfo processInfo : processInfos) {
-                if (processInfo.processName.equals(getApplication().getPackageName())) {
-                    if (processInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                        for (String d : processInfo.pkgList) {
-                            return true;
-                        }
-                    }
+        List<RunningAppProcessInfo> runningProcesses = activityManager.getRunningAppProcesses();
+        if (runningProcesses != null) {
+            for (RunningAppProcessInfo processInfo : runningProcesses) {
+                if (processInfo.processName != null
+                        && processInfo.processName.equals(BuildConfig.APPLICATION_ID)
+                        && processInfo.importance == IMPORTANCE_FOREGROUND
+                        && processInfo.pkgList != null
+                        && processInfo.pkgList.length > 0) {
+                    return true;
                 }
             }
         }
