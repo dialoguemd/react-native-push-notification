@@ -125,8 +125,8 @@ public class RNPushNotificationListenerServiceGcm extends GcmListenerService {
         if (runningProcesses != null) {
             for (RunningAppProcessInfo processInfo : runningProcesses) {
                 if (processInfo.processName != null
-                        && processInfo.processName.equals(BuildConfig.APPLICATION_ID)
-                        && processInfo.importance == IMPORTANCE_FOREGROUND
+                        && processInfo.processName.equals(getApplication().getPackageName())
+                        && processInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND
                         && processInfo.pkgList != null
                         && processInfo.pkgList.length > 0) {
                     return true;
