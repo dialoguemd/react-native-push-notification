@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.dieam.reactnativepushnotification.helpers.ApplicationBadgeHelper;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -62,11 +61,6 @@ public class RNPushNotificationListenerService extends FirebaseMessagingService 
             }
             if (!bundle.containsKey("color")) {
                 bundle.putString("color", data.optString("color", null));
-            }
-
-            final int badge = data.optInt("badge", -1);
-            if (badge >= 0) {
-                ApplicationBadgeHelper.INSTANCE.setApplicationIconBadgeNumber(this, badge);
             }
         }
 
